@@ -29,6 +29,10 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+body #cdawrap {
+	margin-left: auto;
+}
+
 /* Page Loader */
 .js .loading::before,
 .js .loading::after {
@@ -143,11 +147,13 @@ main {
 
 .frame {
 	padding: 0.5rem 5vw;
-	text-align: center;
-	position: relative;
+	position: fixed;
 	text-transform: uppercase;
 	font-size: 0.75rem;
 	color: var(--color-text-frame);
+	bottom: 0;
+	z-index: 50;
+	width: 100%;
 }
 
 .frame__title {
@@ -293,6 +299,7 @@ main {
 .cover__inner {
 	background-size: cover;
 	transform: translateY(100%);
+	background-position: 50% 50%;
 }
 
 .cover-wrap, .cover, .cover__inner {
@@ -519,10 +526,7 @@ main {
 		--menu-padding: 2rem;
 	}
 	.frame {
-		position: fixed;
 		display: flex;
-		bottom: 0;
-		z-index: 50;
 	}
 	.frame__links {
 		margin: 0 0 0 2rem;
