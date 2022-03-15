@@ -34,18 +34,18 @@ let menuStatus = {
 // Animation gsap timeline
 const menuTimeline = gsap.timeline({
     paused: true,
-    onStart: () => {
-        menuStatus.isAnimating = true;
-        // Add pointer events to auto/none
-        DOM.menu.classList[menuStatus.isOpen ? 'add' : 'remove']('menu--open');
-    },
     onComplete: () => menuStatus.isAnimating = false,
+    onReverseComplete: () => menuStatus.isAnimating = false,
     defaults: {
         duration: 1.2,
         ease: 'power4.inOut'
     }
 })
 .addLabel('start', 0)
+.add(() => {
+    // Add pointer events to auto/none
+    DOM.menu.classList[menuStatus.isOpen ? 'add' : 'remove']('menu--open');
+}, 'start')
 .to(DOM.cover.wrap, {
     duration: 1.6,
     startAt: {scale: '1.1'},
@@ -90,6 +90,7 @@ const menuTimeline = gsap.timeline({
 // Menu expand
 const expandMenu = () => {
     if ( menuStatus.isAnimating || menuStatus.isOpen ) return;
+    menuStatus.isAnimating = true;
     menuStatus.isOpen = true;
     menuTimeline.play();
 };
@@ -97,6 +98,7 @@ const expandMenu = () => {
 // Menu collapse
 const collapseMenu = () => {
     if ( menuStatus.isAnimating || !menuStatus.isOpen ) return;
+    menuStatus.isAnimating = true;
     menuStatus.isOpen = false;
     menuTimeline.reverse(0);
 }
